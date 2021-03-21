@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Main-Class: com.smallcase.portfoliomanager.PortfolioManagerApplication
+Class-Path: spring-context-5.3.5.jar jackson-databind-2.11.4.jar spring-
+ data-mongodb-3.1.6.jar junit-jupiter-api-5.7.1.jar spring-beans-5.3.5.j
+ ar spring-data-rest-webmvc-3.4.6.jar spring-core-5.3.5.jar spring-web-5
+ .3.5.jar spring-boot-starter-data-rest-2.4.4.jar spring-boot-starter-te
+ st-2.4.4.jar byte-buddy-agent-1.10.22.jar slf4j-api-1.7.30.jar classmat
+ e-1.5.1.jar logback-classic-1.2.3.jar opentest4j-1.2.0.jar objenesis-3.
+ 1.jar spring-data-commons-2.4.6.jar jackson-datatype-jsr310-2.11.4.jar 
+ apiguardian-api-1.1.0.jar spring-data-rest-core-3.4.6.jar spring-boot-s
+ tarter-logging-2.4.4.jar junit-jupiter-engine-5.7.1.jar tomcat-embed-we
+ bsocket-9.0.44.jar spring-boot-starter-data-mongodb-2.4.4.jar junit-pla
+ tform-commons-1.7.1.jar spring-test-5.3.5.jar spring-aop-5.3.5.jar jaka
+ rta.el-3.0.3.jar jakarta.activation-api-1.2.2.jar jul-to-slf4j-1.7.30.j
+ ar spring-tx-5.3.5.jar junit-jupiter-params-5.7.1.jar spring-jcl-5.3.5.
+ jar validation-api-2.0.1.Final.jar json-path-2.4.0.jar bson-4.1.2.jar s
+ pring-hateoas-1.2.5.jar jakarta.xml.bind-api-2.3.3.jar xmlunit-core-2.7
+ .0.jar spring-boot-starter-tomcat-2.4.4.jar assertj-core-3.18.1.jar spr
+ ing-boot-starter-web-2.4.4.jar json-smart-2.3.jar snakeyaml-1.27.jar ja
+ karta.annotation-api-1.3.5.jar log4j-api-2.13.3.jar hamcrest-2.2.jar by
+ te-buddy-1.10.22.jar jakarta.validation-api-2.0.2.jar spring-boot-autoc
+ onfigure-2.4.4.jar jackson-module-parameter-names-2.11.4.jar mongodb-dr
+ iver-sync-4.1.2.jar evo-inflector-1.2.2.jar mongodb-driver-core-4.1.2.j
+ ar accessors-smart-1.2.jar spring-boot-test-2.4.4.jar spring-boot-test-
+ autoconfigure-2.4.4.jar junit-platform-engine-1.7.1.jar hibernate-valid
+ ator-6.1.7.Final.jar android-json-0.0.20131108.vaadin1.jar jsonassert-1
+ .5.0.jar jackson-datatype-jdk8-2.11.4.jar spring-boot-2.4.4.jar spring-
+ expression-5.3.5.jar logback-core-1.2.3.jar spring-boot-starter-json-2.
+ 4.4.jar asm-5.0.4.jar spring-webmvc-5.3.5.jar spring-boot-starter-2.4.4
+ .jar jackson-core-2.11.4.jar log4j-to-slf4j-2.13.3.jar jboss-logging-3.
+ 4.1.Final.jar jackson-annotations-2.11.4.jar spring-plugin-core-2.0.0.R
+ ELEASE.jar mockito-junit-jupiter-3.6.28.jar mockito-core-3.6.28.jar tom
+ cat-embed-core-9.0.44.jar junit-jupiter-5.7.1.jar
+
