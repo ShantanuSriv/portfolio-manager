@@ -13,8 +13,9 @@ public interface PortfolioService {
     /**
      * Updates a portfolio
      * @param trade
+     * @return
      */
-    void updatePortfolio(Trade trade);
+    boolean updatePortfolio(Trade trade, String id);
 
     /**
      * Revert changes from a trade for a portfolio
