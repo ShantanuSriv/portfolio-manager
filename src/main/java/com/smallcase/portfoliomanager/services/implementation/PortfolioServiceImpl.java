@@ -36,7 +36,8 @@ public class PortfolioServiceImpl implements PortfolioService {
      * @param trade
      */
     @Override
-    public void updatePortfolio(Trade trade) {
+    public boolean updatePortfolio(Trade trade, String id) {
+        boolean isTickerSymbolRemoved = false;
         List<Portfolio> portfolioList = portfolioRepository.findAll();
         if (Objects.nonNull(portfolioList) && portfolioList.size() > 1) {
             throw new ValidationException("Portfolio update has been aborted as portfolio size is invalid");
@@ -65,36 +66,44 @@ public class PortfolioServiceImpl implements PortfolioService {
             securityMap.put(trade.getTickerSymbol(), security);
         } else {
             Security security = securityMap.get(trade.getTickerSymbol());
-            List<Trade> tradeList = tradeService.fetchActiveTrades(trade.getTickerSymbol());
-            int newShareCount = 0;
-            // Get the count of active share count
-            for (Trade trade1: tradeList) {
-                if (trade1.getTradeType().equals(TradeType.BUY)) {
-                    newShareCount += trade1.getShares();
-                } else {
-                    newShareCount -= trade1.getShares();
-                }
-            }
+            int existingShareCount = getExistingShareCount(trade.getTickerSymbol());
+            int newShareCount = trade.getId() == null ? trade.getShares() : 0;
             if (trade.getTradeType().equals(TradeType.SELL)) {
-                if (security.getShares() < trade.getShares()) {
+                if (existingShareCount < newShareCount) {
                     throw new ValidationException("Number of sell shares should be less that total holdings for " + trade.getTickerSymbol());
                 }
                 // remove the trade entry from the portfolio and deactivate all trades with the tickerSymbol
-                if (newShareCount <= 0) {
+                if (existingShareCount == newShareCount) {
+                    isTickerSymbolRemoved = true;
                     securityMap.remove(trade.getTickerSymbol());
                     tradeService.deactivateTrades(trade.getTickerSymbol());
                 } else {
-                    security.setShares(newShareCount);
+                    security.setShares(existingShareCount - newShareCount);
                     securityMap.put(trade.getTickerSymbol(), security);
                 }
             } else {
-                security.setAverageBuyPrice((security.getAverageBuyPrice() * security.getShares() + trade.getPrice() * trade.getShares()) / newShareCount);
-                security.setShares(newShareCount);
+                security.setAverageBuyPrice((security.getAverageBuyPrice() * security.getShares() + trade.getPrice() * trade.getShares()) / (existingShareCount + newShareCount));
+                security.setShares(existingShareCount + newShareCount);
                 securityMap.put(trade.getTickerSymbol(), security);
             }
         }
         portfolio.setSecurityMap(securityMap);
         portfolioRepository.save(portfolio);
+        return isTickerSymbolRemoved;
+    }
+
+    private int getExistingShareCount(String tickerSymbol) {
+        List<Trade> tradeList = tradeService.fetchActiveTrades(tickerSymbol);
+        int newShareCount = 0;
+        // Get the count of active share count
+        for (Trade trade1: tradeList) {
+            if (trade1.getTradeType().equals(TradeType.BUY)) {
+                newShareCount += trade1.getShares();
+            } else {
+                newShareCount -= trade1.getShares();
+            }
+        }
+        return newShareCount;
     }
 
     /**

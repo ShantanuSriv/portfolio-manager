@@ -46,8 +46,10 @@ public class TradeServiceImpl implements TradeService {
                 .shares(tradeRequestDto.getShares())
                 .isActive(true)
                 .build();
+        if (portfolioService.updatePortfolio(trade, null)) {
+            trade.setActive(false);
+        }
         trade = tradeRepository.save(trade);
-        portfolioService.updatePortfolio(trade);
         return TradeMapper.toDto(trade);
     }
 
@@ -72,9 +74,11 @@ public class TradeServiceImpl implements TradeService {
         }
         // Copy all properties
         BeanUtils.copyProperties(tradeRequestDto, trade);
+        if (portfolioService.updatePortfolio(trade, trade.getId())) {
+            trade.setActive(false);
+        }
         trade.setActive(true);
-        Trade newTrade = tradeRepository.save(trade);
-        portfolioService.updatePortfolio(newTrade);
+        tradeRepository.save(trade);
         return TradeMapper.toDto(trade);
     }
 
